@@ -1,12 +1,237 @@
-*.class
+Please credit Declan Otten for this program. I release this code for all to use freely and to edit.
+All I ask is that I am credited for the original work.
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+If I knew a place to upload the program and sample images I would, but unfortunately I do not :( If you know where I can go to upload the program as well as sample images, please message me.
+Feel free to message me for the actual program.
+Message me at: Declan.otten@live.com.au
+Or on other media:
+Steam: gnomeslayer778 (Look for a cartoon display picture, from Australia)
+Skype: gnomeslayer778 (my display picture is a image of blitzcrank from league of legends)
+This program was made with the intentions of filtering out the unwanted text on file names
 
-# Package Files #
-*.jar
-*.war
-*.ear
+For example: [HorribleSubs]_My_File_Name_[xhascode12313123].mkv becomes My File Name.mkv   
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
+I uploaded a sample image here.
+http://i60.tinypic.com/ael9fm.jpg
+
+
+
+
+
+
+
+
+
+
+
+
+
+private void ProcessButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+
+    
+    //Get the target folder
+    File Target_folder = new File("C:\\Users\\Mothership\\Desktop\\testsorting\\Target");
+    String targetFolderText = TargetFolderTextField.getText();
+        String remover = "\\";
+        targetFolderText = targetFolderText.replace(remover, "\\");
+    //Get the destination folder.
+    if(!TargetFolderTextField.getText().isEmpty())
+    {
+        
+        //JOptionPane.showMessageDialog(new JFrame(), "Before: " + TargetFolderTextField.getText());
+        File Destination_folder = new File(targetFolderText);
+        //JOptionPane.showMessageDialog(new JFrame(), "After: " + targetFolderText);
+    }else{
+        JOptionPane.showMessageDialog(new JFrame(), "Eggs are not supposed to be green.");
+    }
+    
+    //Grab a list of files.
+    File[] listOfFiles = Target_folder.listFiles();
+    
+    //Grabs the files and stores them in this array.
+    List<String> MyFiles = new ArrayList<String>();
+    //Grabs the directorys and stores them in this array.
+    List<String> MyDirectorys = new ArrayList<String>();
+    //Grabs the originals and stores them in this. we'll use this later.
+    List<String> MyOriginals = new ArrayList<String>();
+    
+    //Original Directory.
+    File Odirectory = new File(targetFolderText);
+    //New Directory.
+    File Ndirectory; File NNdirectory; File NNNdirectory; File NNNNdirectory;
+
+    
+    File[] fList = Odirectory.listFiles();
+    
+    for (File file : fList)
+    {
+     if (file.isFile())
+       {
+           MyFiles.add(file.toString());
+           MyOriginals.add(file.toString());
+        }
+     if (file.isDirectory())
+        {
+            MyDirectorys.add(file.toString());
+            Ndirectory = file;
+            for(File file2 : Ndirectory.listFiles())
+            {
+                if(file2.isFile())
+                {
+                    MyFiles.add(file2.toString());
+                    MyOriginals.add(file2.toString());
+                }
+                
+                if(file2.isDirectory())
+                {
+                    MyDirectorys.add(file2.toString());
+                    NNdirectory = file2;
+                    for(File file3 : NNdirectory.listFiles())
+                    {
+                        if(file3.isFile())
+                        {
+                            MyFiles.add(file3.toString());
+                            MyOriginals.add(file3.toString());
+                        }
+                        if(file3.isDirectory())
+                        {
+                            MyDirectorys.add(file3.toString());
+                            NNNdirectory = file3;
+                            for(File file4 : NNNdirectory.listFiles())
+                            {
+                                if(file4.isFile())
+                                {
+                                    MyFiles.add(file4.toString());
+                                    MyOriginals.add(file4.toString());
+                                }
+                                if(file4.isDirectory())
+                                {
+                                    MyDirectorys.add(file4.toString());
+                                    NNNNdirectory = file4;
+                                    for(File file5 : NNNNdirectory.listFiles())
+                                    {
+                                        if(file5.isFile())
+                                        {
+                                            MyFiles.add(file5.toString());
+                                            MyOriginals.add(file5.toString());
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+       }
+     
+    }
+    
+    //For testing purposes.
+    //System.out.println(MyFiles.size());
+    
+    //Get original Name!
+    
+    for(String qwe : MyDirectorys)
+    {
+        //System.out.println(qwe);
+    }
+    //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!");
+    Collections.reverse(MyDirectorys);
+    for(String qwe : MyDirectorys)
+    {
+        //System.out.println(qwe);
+    }
+    MyDirectorys.add(targetFolderText);
+    //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!");
+    for (int index = 0; index < MyFiles.size(); index++)
+    {
+        //Gets the current file.
+       String myCurr = MyFiles.get(index).toString();
+       //Remoes it from the array.
+       //System.out.println(index);
+       //MyFiles.remove(index);
+       
+       //Remove the directory from the array.
+        for(String My_remover : MyDirectorys)
+        {
+            if(myCurr.contains(My_remover))
+            {
+                myCurr = myCurr.replace(My_remover, "");
+               // //System.out.println("Removed: " + My_remover + ". Now looks like: " + myCurr);
+               // //System.out.println("--------------------");
+                String rep = myCurr;
+                myCurr = MyFilter(rep);
+                ////System.out.println("Filtered stuff, looks like: " + myCurr);
+                ////System.out.println("--------------------");
+                if(!DestinationFolderTextField.getText().isEmpty())
+                {
+                    String myCurr2 = DestinationFolderTextField.getText() + myCurr;
+                    MyFiles.set(index, myCurr2);
+                }else{
+                    String myCurr2 = My_remover + myCurr;
+                    MyFiles.set(index, myCurr2);
+                }
+                ////System.out.println("Added the directory back to the filename, looks like: " + myCurr2);
+                ////System.out.println("--------------------");
+                
+                
+            }
+        }
+    }
+    for (int index = 0; index < MyFiles.size(); index++)
+    {
+       //System.out.println(MyFiles.get(index));
+       //System.out.println(MyOriginals.get(index));
+      //System.out.println("--------------------");
+      String oldName = MyOriginals.get(index);
+      String newName = MyFiles.get(index);
+                    
+                       File file = new File(oldName);
+                       File newFile = new File((newName));
+                       if(file.renameTo(newFile))
+                       {
+                        //System.out.println("File rename success");
+                        //System.out.println("--------------------");
+                       }else{
+                        FailureTextArea.append("File rename failed" + " Original: " + file + " New: " + newFile + '\n');
+                        //System.out.println("File rename failed" + " Original: " + file + " New: " + newFile);
+                        //System.out.println("--------------------");
+                       }
+    }
+        
+    }
+
+
+
+
+private static String MyFilter(String filtered)
+    {
+        String rep = filtered;
+        String remover;
+        while(rep.contains("["))
+                {
+                    int firstIndex = rep.indexOf('[');
+                    int secondIndex = rep.indexOf(']');
+                    String news = rep.substring(0, firstIndex) + rep.substring(secondIndex+1,rep.length());
+                    rep = news;
+                }
+                while(rep.contains("("))
+                {
+                    int firstIndex = rep.indexOf('(');
+                    int secondIndex = rep.indexOf(')');
+                    String news = rep.substring(0, firstIndex) + rep.substring(secondIndex+1,rep.length());
+                    rep = news;
+                }
+                while(rep.contains("{"))
+                {
+                    int firstIndex = rep.indexOf('{');
+                    int secondIndex = rep.indexOf('}');
+                    String news = rep.substring(0, firstIndex) + rep.substring(secondIndex+1,rep.length());
+                    rep = news;
+                }
+                remover = "_";
+                rep = rep.replace(remover, " ");
+                rep = rep.replace(" .mkv", ".mkv"); 
+        return rep;
+    }
